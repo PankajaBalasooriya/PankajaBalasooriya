@@ -1,3 +1,10 @@
+<h1 align="center">Pankaja Balasooriya</h1>
+<h3 align="center">Undergraduate at Department of Electronic and Telecommunications Engineering, University of Moratuwa, Sri Lanka</h3>
+
+
+
+
+
 ### Hi there 👋
 
 <!--
