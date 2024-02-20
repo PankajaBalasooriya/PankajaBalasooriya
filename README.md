@@ -1,5 +1,6 @@
 <h1 align="center">Pankaja Balasooriya</h1>
-<h3 align="center">Undergraduate at Department of Electronic and Telecommunications Engineering, University of Moratuwa</h3>
+<h3 align="center">Electronic and Telecommunications Engineering<h3>
+<h3 align="center">University of Moratuwa</h3>
 
 
 
