@@ -16,7 +16,7 @@
 
 - 🔭 I’m currently working on University Projects, Micromouse, and other Robotics Projects.
 - 🌱 I’m currently learning Deep Learning, STM32 development (ARM Cortex-M), and Embedded Machine Learning.
-- 📫 Reach me: [pankajabalasooriya@gmail.com](pankajabalasooriya@gmail.com)
+- 📫 Reach me: [pankajabalasooriya@gmail.com](mailto:pankajabalasooriya@gmail.com)
 - 🌐 Visit my website: [www.pankajabalasooriya.me](https://www.pankajabalasooriya.me)
 
 <h3 align="left">Connect with me:</h3>
