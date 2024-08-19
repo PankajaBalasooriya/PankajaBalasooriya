@@ -38,10 +38,11 @@
 
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=PankajaBalasooriya&show_icons=true&locale=en&theme=chartreuse-dark&include_all_commits=false&private_count=true" alt="PankajaBalasooriya" style="width: 500px; height: 250px; margin-right: 10px;" />
+  <img src="https://github-readme-stats.vercel.app/api?username=PankajaBalasooriya&show_icons=true&locale=en&theme=chartreuse-dark&include_all_commits=false&private_count=true"  />
 <br>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=PankajaBalasooriya&theme=chartreuse-dark&hide_border=true" alt="PankajaBalasooriya" style="width: 500px; height: 250px; margin-right: 10px;" /> 
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PankajaBalasooriya&theme=chartreuse-dark&show_icons=true&hide_border=true&layout=compact" alt="PankajaBalasooriya" style="width: 500px; height: 250px; margin-right: 10px;" />
+<br>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PankajaBalasooriya&theme=chartreuse-dark&show_icons=true&hide_border=true&layout=compact"  />
 </p>
 
 
