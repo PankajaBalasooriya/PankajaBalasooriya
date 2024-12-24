@@ -8,14 +8,14 @@
 <div align="center">
   
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&duration=1&color=818181&center=true&repeat=false&width=600&height=55&lines=I'm+interested+in%2C)](https://git.io/typing-svg)
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=36&duration=2003&pause=400&color=FFFFFF&background=FFFFFF00&center=true&width=600&height=60&lines=Machine+Learning!%F0%9F%96%A5%EF%B8%8F;Robotics!%F0%9F%A4%96;Embedded+Systems⚙️;Electronics⚡)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=36&duration=2003&pause=400&color=FFFFFF&background=FFFFFF00&center=true&width=600&height=60&lines=Robotics!%F0%9F%A4%96;Embedded+Systems⚙️;Electronics⚡)](https://git.io/typing-svg)
 
 </div>
 
 - 🎓Electronic & Telecommunication Engineering Undergraduate Student at [University of Moratuwa](https://uom.lk/), SriLanka.
 
-- 🔭 I’m currently working on University Projects, Micromouse, and other Robotics Projects.
-- 🌱 I’m currently learning Deep Learning, STM32 development (ARM Cortex-M), and Embedded Machine Learning.
+- 🔭 I’m currently working on the development of a Micromouse, Quadcopter flight controller.
+- 🌱 I’m currently learning STM32 firmware development (ARM Cortex-M), Embedded Machine Learning.
 - 📫 Reach me: [pankajabalasooriya@gmail.com](mailto:pankajabalasooriya@gmail.com)
 - 🌐 Visit my website: [www.pankajabalasooriya.me](https://www.pankajabalasooriya.me)
 
