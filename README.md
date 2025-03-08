@@ -14,7 +14,7 @@
 
 - 🎓Electronic & Telecommunication Engineering Undergraduate Student at [University of Moratuwa](https://uom.lk/), SriLanka.
 
-- 🔭 I’m currently working on the development of a Micromouse, Quadcopter flight controller.
+- 🔭 I’m currently working on the development of a Micromouse, Industrial Omni-Directional Robot.
 - 🌱 I’m currently learning STM32 firmware development (ARM Cortex-M), Embedded Machine Learning.
 - 📫 Reach me: [pankajabalasooriya@gmail.com](mailto:pankajabalasooriya@gmail.com)
 - 🌐 Visit my website: [www.pankajabalasooriya.me](https://www.pankajabalasooriya.me)
