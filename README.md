@@ -44,6 +44,12 @@
 <!-- <img src="https://img.shields.io/badge/ROS1%20Noetic-22314E?style=for-the-badge&logo=ros&logoColor=white" />
 <img src="https://img.shields.io/badge/ROS2%20Humble-22314E?style=for-the-badge&logo=ros&logoColor=white" /> -->
 
+#### 🗄️ Database:
+<img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white">
+<img alt="MySQL" src="https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white">
+
+
+
 #### 📡 Design & Simulation:  
 <img src="https://img.shields.io/badge/Altium%20Designer-0076A8?style=for-the-badge&logo=altiumdesigner&logoColor=white" /> <img src="https://img.shields.io/badge/SolidWorks-FF0000?style=for-the-badge&logo=solidworks&logoColor=white" /> <img src="https://img.shields.io/badge/LTspice-000000?style=for-the-badge&logoColor=white" />
 <!-- <img src="https://img.shields.io/badge/Quartus-0066CC?style=for-the-badge&logo=intel&logoColor=white" /> -->
