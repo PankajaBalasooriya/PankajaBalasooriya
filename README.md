@@ -98,6 +98,12 @@
 
 ## Courses📚📖
 -->
-<center>
-  ![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=PankajaBalasooriya&theme=tokyonight&hide_border=false)
-</center>
+<div> 
+
+ 
+
+
+
+  ![](http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Tharusha-Dilshan&theme=tokyonight&hide_border=false)
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Tharusha-Dilshan&theme=tokyonight&hide_border=false&layout=compact&hide_border=true&langs_count=10"          alt="JustSong's Top Langs" width="37%" /> 
+<\div>
