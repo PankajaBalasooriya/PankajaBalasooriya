@@ -98,4 +98,6 @@
 
 ## Courses📚📖
 -->
-
+<center>
+  ![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=PankajaBalasooriya&theme=tokyonight&hide_border=false)
+</center>
