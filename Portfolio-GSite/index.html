@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micromouse V3 - Advanced Autonomous Maze Solver</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #e9ecef;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header Section */
+        .header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #495057, #212529);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .header-text .subtitle {
+            font-size: 1.3rem;
+            color: #495057;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #495057;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .header-image {
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid #dee2e6;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .robot-render {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #495057, #212529);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .robot-render::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            color: #212529;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            border-bottom: 3px solid #495057;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: #343a40;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        /* PCB Section */
+        .pcb-showcase {
+            background: #343a40;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pcb-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="70" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .pcb-showcase h2 {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .pcb-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .spec-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #f8f9fa;
+        }
+
+        .spec-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: #e9ecef;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #495057;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #dee2e6;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card h4 {
+            color: #212529;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #495057;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* IMU Section */
+        .imu-section {
+            background: #495057;
+            color: white;
+        }
+
+        .imu-section h2 {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .imu-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .imu-feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .imu-feature h4 {
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .imu-feature p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: rgba(248, 249, 250, 0.98);
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .progress-item.in-progress {
+            background: rgba(255, 152, 0, 0.1);
+            border-left-color: #FF9800;
+        }
+
+        .progress-item.planned {
+            background: rgba(73, 80, 87, 0.1);
+            border-left-color: #495057;
+        }
+
+        .progress-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .progress-icon.completed { background: #4CAF50; }
+        .progress-icon.in-progress { background: #FF9800; }
+        .progress-icon.planned { background: #495057; }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: #495057;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(73, 80, 87, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(73, 80, 87, 0.4);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #f8f9fa;
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            margin: 3rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background: #495057;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(73, 80, 87, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(73, 80, 87, 0.4);
+            background: #343a40;
+        }
+
+        .cta-button.secondary {
+            background: #343a40;
+        }
+
+        .cta-button.secondary:hover {
+            background: #212529;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .header-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <div class="status-badge">⚡ In Development</div>
+                    <h1>Micromouse V3</h1>
+                    <p class="subtitle">Next-Generation Autonomous Maze Solver with Custom PCB and Advanced IMU Integration</p>
+                    <p style="color: #495057; margin-top: 1rem;">
+                        Building upon the success of V2, this iteration focuses on precision, speed, and intelligent navigation through custom hardware design and advanced sensor fusion.
+                    </p>
+                </div>
+                <div class="header-image">
+                    <div class="robot-render">
+                        <div style="z-index: 1; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤖</div>
+                            <div>3D Render Coming Soon</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Custom PCB • BNO055 IMU • Advanced Sensors</div>
+                        </div>
+                    </div>
+                    <p style="color: #495057; margin-top: 1rem; font-size: 0.9rem;">
+                        Final assembly and testing in progress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            
+            <!-- PCB Design Section -->
+            <div class="section pcb-showcase">
+                <h2>🔧 Custom PCB Design</h2>
+                <p>Designed from the ground up to optimize space, reduce weight, and improve reliability. The custom PCB integrates all major components onto a single board, eliminating the need for multiple development boards and reducing wiring complexity.</p>
+                
+                <div class="pcb-specs">
+                    <div class="spec-item">
+                        <h4>Board Size</h4>
+                        <p>45mm x 60mm<br>4-layer PCB</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Microcontroller</h4>
+                        <p>ESP32-S3<br>Dual-core 240MHz</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Power Management</h4>
+                        <p>3.3V/5V Rails<br>Battery Monitor</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Connectivity</h4>
+                        <p>WiFi & Bluetooth<br>USB-C Programming</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Sensors</h4>
+                        <p>8x IR Sensors<br>BNO055 IMU</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Motors</h4>
+                        <p>Dual Motor Drivers<br>Encoder Interfaces</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: white;">Key Design Features</h3>
+                <div class="features-grid" style="margin-top: 1rem;">
+                    <div class="feature-card">
+                        <h4>Integrated Design</h4>
+                        <p>All components on a single PCB eliminates point-to-point wiring, reducing weight by 30% and improving reliability through fewer connection points.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Sensor Array</h4>
+                        <p>8 strategically placed IR sensors provide 360-degree wall detection with redundancy for critical navigation decisions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Power Efficiency</h4>
+                        <p>Switching regulators and power management ICs optimize battery life while maintaining consistent performance throughout the run.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Debugging Interface</h4>
+                        <p>Built-in LED indicators, test points, and USB-C interface enable rapid debugging and parameter tuning during development.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMU Integration Section -->
+            <div class="section imu-section">
+                <h2>🧭 BNO055 IMU Integration</h2>
+                <p>The Bosch BNO055 provides 9-axis absolute orientation sensing with built-in sensor fusion, delivering precise heading information crucial for accurate maze navigation and high-speed turns.</p>
+
+                <div class="imu-features">
+                    <div class="imu-feature">
+                        <h4>Absolute Orientation</h4>
+                        <p>9-DOF sensor fusion provides drift-free heading information, essential for maintaining accurate positioning during long maze runs.</p>
+                    </div>
+                    <div class="imu-feature">
+                        <h4>Fast Calibration</h4>
+                        <p>Automatic calibration algorithms ensure consistent performance across different operating conditions and surface types.</p>
+                    </div>
+                    <div class="imu-feature">
+                        <h4>High-Speed Performance</h4>
+                        <p>100Hz update rate enables precise control during rapid acceleration and high-speed cornering maneuvers.</p>
+                    </div>
+                    <div class="imu-feature">
+                        <h4>Integrated Algorithms</h4>
+                        <p>Built-in Kalman filter and sensor fusion algorithms reduce computational load on the main processor.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: white;">Implementation Details</h3>
+                <div style="margin-top: 1rem; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px;">
+                    <p><strong>Communication:</strong> I2C interface at 400kHz for high-speed data transfer</p>
+                    <p><strong>Mounting:</strong> Vibration-isolated mounting to reduce noise from motor vibrations</p>
+                    <p><strong>Calibration:</strong> Automatic gyroscope and magnetometer calibration on startup</p>
+                    <p><strong>Data Fusion:</strong> Combining IMU data with encoder feedback for enhanced position accuracy</p>
+                </div>
+            </div>
+
+            <!-- Technical Features -->
+            <div class="two-column">
+                <div class="section">
+                    <h2>⚙️ Advanced Features</h2>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h4>Machine Learning</h4>
+                            <p>Adaptive pathfinding algorithms that learn from maze characteristics and optimize routes in real-time.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Wireless Telemetry</h4>
+                            <p>Real-time data streaming for performance analysis and remote parameter adjustment during competition.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Velocity Profiling</h4>
+                            <p>Advanced motion planning with S-curve acceleration profiles for maximum speed through turns.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Predictive Navigation</h4>
+                            <p>Look-ahead algorithms that anticipate upcoming turns and optimize speed profiles accordingly.</p>
+                        </div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">ESP32-S3</span>
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">FreeRTOS</span>
+                        <span class="tech-tag">BNO055</span>
+                        <span class="tech-tag">KiCad</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">WiFi</span>
+                        <span class="tech-tag">Machine Learning</span>
+                    </div>
+                </div>
+
+                <div class="section progress-section">
+                    <h2>📋 Development Progress</h2>
+                    
+                    <div class="progress-item">
+                        <div class="progress-icon completed">✓</div>
+                        <div>
+                            <h4>PCB Design & Fabrication</h4>
+                            <p>Custom 4-layer PCB designed in KiCad and fabricated. All components sourced and ready for assembly.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-icon completed">✓</div>
+                        <div>
+                            <h4>BNO055 Integration</h4>
+                            <p>IMU successfully integrated with ESP32. Calibration algorithms implemented and tested.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item in-progress">
+                        <div class="progress-icon in-progress">⚡</div>
+                        <div>
+                            <h4>Sensor Calibration</h4>
+                            <p>Fine-tuning IR sensor array and implementing adaptive thresholding algorithms.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item in-progress">
+                        <div class="progress-icon in-progress">⚡</div>
+                        <div>
+                            <h4>Algorithm Development</h4>
+                            <p>Implementing A* pathfinding and velocity profiling algorithms for optimal maze solving.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item planned">
+                        <div class="progress-icon planned">⏳</div>
+                        <div>
+                            <h4>Machine Learning Integration</h4>
+                            <p>Training neural networks for adaptive pathfinding and maze pattern recognition.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item planned">
+                        <div class="progress-icon planned">⏳</div>
+                        <div>
+                            <h4>Competition Testing</h4>
+                            <p>Extensive testing on various maze configurations and performance optimization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Target Specifications -->
+            <div class="section">
+                <h2>🎯 Target Specifications</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Performance Goals</h3>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li><strong>Maze Solving Time:</strong> Sub-10 seconds (16x16 maze)</li>
+                            <li><strong>Top Speed:</strong> 2.5 m/s in straight sections</li>
+                            <li><strong>Acceleration:</strong> 8 m/s² with smooth profiles</li>
+                            <li><strong>Turn Radius:</strong> 45mm at 1 m/s</li>
+                            <li><strong>Position Accuracy:</strong> ±2mm throughout run</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Technical Specifications</h3>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li><strong>Dimensions:</strong> 85mm x 85mm x 45mm</li>
+                            <li><strong>Weight:</strong> <180g (including battery)</li>
+                            <li><strong>Battery Life:</strong> 50+ runs per charge</li>
+                            <li><strong>Sensor Range:</strong> 5cm to 20cm (IR sensors)</li>
+                            <li><strong>Processing Power:</strong> 240MHz dual-core</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 style="color: #212529; margin-bottom: 1rem;">Follow the Development Journey</h2>
+            <p style="color: #495057; margin-bottom: 2rem;">
+                Stay updated with detailed build logs, technical documentation, and testing videos as V3 comes to life.
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button">View GitHub Repository</a>
+                <a href="#" class="cta-button secondary">Download PCB Files</a>
+                <a href="#" class="cta-button">Watch Build Videos</a>
+                <a href="#" class="cta-button secondary">Technical Documentation</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
