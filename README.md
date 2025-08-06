@@ -14,8 +14,8 @@
 -->
 - 🎓Electronic & Telecommunication Engineering Undergraduate Student at [University of Moratuwa](https://uom.lk/), SriLanka.
 
-- 🔭 I’m currently working on a Micromouse Robot.
-- 🌱 I’m currently learning Embedded Machine Learning, Computer Vision.
+- 🔭 I’m currently working on a Micromouse Robot and Autonomous Drone project.
+- 🌱 I’m currently learning Deep Learning and Computer Vision.
 - 📫 Reach me: [pankajabalasooriya@gmail.com](mailto:pankajabalasooriya@gmail.com)
 - 🌐 Visit my website: [www.pankajabalasooriya.me](https://www.pankajabalasooriya.me)
 
